@@ -1,0 +1,554 @@
+{
+  "name": "Chatbot_IESS",
+  "intents": [
+    {
+      "intent": "tipos_afiliación",
+      "examples": [
+        {
+          "text": "Cuales son los tipos de afiliacion al iees"
+        }
+      ],
+      "description": "Cuales son los tipos de afiliacion al iees"
+    },
+    {
+      "intent": "afiliar",
+      "examples": [
+        {
+          "text": "como puedo afiliarme"
+        },
+        {
+          "text": "que necesito para afiliarme"
+        },
+        {
+          "text": "puedo afiliarme"
+        },
+        {
+          "text": "afiliación"
+        },
+        {
+          "text": "afiliacion"
+        },
+        {
+          "text": "afiliar"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "welcome",
+      "examples": [
+        {
+          "text": "hola"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "concepto_iess",
+      "examples": [
+        {
+          "text": "Que es el iees"
+        }
+      ],
+      "description": "Estos son los conceptos del IESS"
+    },
+    {
+      "intent": "concepto_asegurados",
+      "examples": [
+        {
+          "text": "¿QUIÉNES SON LOS ASEGURADOS?"
+        }
+      ],
+      "description": "¿QUIÉNES SON LOS ASEGURADOS?"
+    },
+    {
+      "intent": "clave",
+      "examples": [
+        {
+          "text": "como recuperar la clave"
+        },
+        {
+          "text": "ayuda olvide mi clave"
+        },
+        {
+          "text": "bloquear"
+        },
+        {
+          "text": "clave"
+        },
+        {
+          "text": "generar clave"
+        },
+        {
+          "text": "como gener la clave"
+        },
+        {
+          "text": "olvide mi clave"
+        }
+      ],
+      "description": "¿Cómo género o recupero mi clave personal?"
+    },
+    {
+      "intent": "no",
+      "examples": [
+        {
+          "text": "no se"
+        },
+        {
+          "text": "no me sirves"
+        },
+        {
+          "text": "no"
+        },
+        {
+          "text": "no me ayudas"
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "entities": [
+    {
+      "entity": "tipos_afiliacion",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "afiliación:Afiliacion obligatoria",
+          "synonyms": [
+            "Afiliacion obligatoria"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "afiliacion:Afiliacion voluntaria",
+          "synonyms": [
+            "Afiliacion voluntaria"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "clave",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "recuperar",
+          "synonyms": [
+            "recuperar clave"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "generar",
+          "synonyms": [
+            "generar clave"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "bloquear",
+          "synonyms": [
+            "bloquear clave"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    }
+  ],
+  "language": "es",
+  "metadata": {
+    "api_version": {
+      "major_version": "v1",
+      "minor_version": "2018-07-10"
+    }
+  },
+  "description": "",
+  "dialog_nodes": [
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_1_1542075733889",
+      "metadata": {},
+      "variable": "$clave",
+      "dialog_node": "slot_6_1542075854956",
+      "previous_sibling": "node_10_1542075890106"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "text": {
+          "values": [
+            "Bloqueo de clave: Solo en caso de que el sistema no valide su información y hasta por tres (3) ocasiones el procesos se bloqueara, debiendo acercarse a los centros de atención universal, con el original de su cédula para el desbloqueo. Luego reiniciará el procesos de generar/recuperar clave."
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "node_1_1542075733889",
+      "metadata": {},
+      "conditions": "@clave:bloquear",
+      "dialog_node": "node_22_1542076853648",
+      "previous_sibling": "node_21_1542076825804"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "text": {
+          "values": [
+            "Recuperar Clave: Ingrese a la pág. Web www.iess.gob.ec, Sección afiliado, dar clic en generar/recuperar clave. Ingrese y valide su identificación registrando sus datos personales, seleccionando la imagen y respondiendo a las preguntas personales que usted grabó cuando generó su clave por primera vez. Concluido el proceso, al correo registrado, llegará un link para que autogenere si calve de afiliado/pensionista."
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "node_1_1542075733889",
+      "metadata": {},
+      "conditions": "@clave:recuperar",
+      "dialog_node": "node_21_1542076825804",
+      "previous_sibling": "node_2_1542075762467"
+    },
+    {
+      "type": "frame",
+      "output": {},
+      "parent": "node_1_1542075733889",
+      "metadata": {
+        "fallback": "leave",
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "@clave:generar",
+      "dialog_node": "node_10_1542075890106",
+      "digress_out": "allow_all",
+      "previous_sibling": "node_22_1542076853648",
+      "digress_out_slots": "not_allowed"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "text": {
+          "values": [
+            "Generar clave: Ingrese a la pág. Web www.iess.gob.ec, Sección afiliado, dar clic en generar/recuperar clave. Ingrese y valide sus datos personales y responda las preguntas que el sistema formula y que son relacionadas con la información que usted tiene dentro del IESS, construya su propia información registrando su dirección de correo electrónico, sus números de teléfono. Seleccionando una imagen y respondiendo al menos tres preguntas que usted escogerá como personales. Concluido el proceso, al correo registrado, llegará un link para que autogenere su clave de afiliado/pensionista."
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "node_1_1542075733889",
+      "metadata": {},
+      "conditions": "@clave:generar",
+      "dialog_node": "node_2_1542075762467"
+    },
+    {
+      "type": "slot",
+      "parent": "node_25_1542079081361",
+      "dialog_node": "slot_27_1542079101217",
+      "previous_sibling": "node_71_1542082325329"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "text": {
+          "values": [
+            "Están obligados a la afiliación al Seguro Social todas las personas que perciben ingresos por la ejecución de una obra o la prestación de un servicio físico o intelectual, con relación laboral o sin ella. El empleador público o privado registrará en el IESS la afiliación a sus trabajadores desde el primer día de labor hasta el último día efectivamente trabajado.  En caso de no cumplirse la afiliación en este periodo, se sancionará este hecho como evasión de aportes."
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "node_25_1542079081361",
+      "metadata": {},
+      "conditions": "@tipos_afiliacion:(afiliación:Afiliacion obligatoria)",
+      "dialog_node": "node_71_1542082325329",
+      "previous_sibling": "node_70_1542082232954"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "text": {
+          "values": [
+            "Se pueden afiliar voluntariamente las personas que tengan ingresos sin relación de dependencia o independientes, domiciliadas en el Ecuador. Beneficios de la afiliacion Las prestaciones y beneficios para los afiliados voluntarios ecuatorianos o extranjeros residentes en el Ecuador son:   Pensión por vejez, invalidez y montepío. Auxilio de funerales. Riesgos de trabajo."
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "node_25_1542079081361",
+      "metadata": {},
+      "conditions": "@tipos_afiliacion:(afiliacion:Afiliacion voluntaria)",
+      "dialog_node": "node_70_1542082232954"
+    },
+    {
+      "type": "slot",
+      "parent": "node_10_1542075890106",
+      "dialog_node": "slot_15_1542075945957",
+      "previous_sibling": "node_20_1542076187699"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "text": {
+          "values": [
+            "Recuperar Clave: Ingrese a la pág. Web www.iess.gob.ec, Sección afiliado, dar clic en generar/recuperar clave. Ingrese y valide su identificación registrando sus datos personales, seleccionando la imagen y respondiendo a las preguntas personales que usted grabó cuando generó su clave por primera vez. Concluido el proceso, al correo registrado, llegará un link para que autogenere si calve de afiliado/pensionista."
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "node_10_1542075890106",
+      "metadata": {},
+      "conditions": "@clave:recuperar",
+      "dialog_node": "node_19_1542076098133",
+      "previous_sibling": "node_11_1542075908448"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "text": {
+          "values": [
+            "Bloqueo de clave: Solo en caso de que el sistema no valide su información y hasta por tres (3) ocasiones el procesos se bloqueara, debiendo acercarse a los centros de atención universal, con el original de su cédula para el desbloqueo. Luego reiniciará el procesos de generar/recuperar clave."
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "node_10_1542075890106",
+      "metadata": {},
+      "conditions": "@clave:bloquear",
+      "dialog_node": "node_20_1542076187699",
+      "previous_sibling": "node_19_1542076098133"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "text": {
+          "values": [
+            "Generar clave: Ingrese a la pág. Web www.iess.gob.ec, Sección afiliado, dar clic en generar/recuperar clave. Ingrese y valide sus datos personales y responda las preguntas que el sistema formula y que son relacionadas con la información que usted tiene dentro del IESS, construya su propia información registrando su dirección de correo electrónico, sus números de teléfono. Seleccionando una imagen y respondiendo al menos tres preguntas que usted escogerá como personales. Concluido el proceso, al correo registrado, llegará un link para que autogenere su clave de afiliado/pensionista."
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "node_10_1542075890106",
+      "metadata": {},
+      "conditions": "@clave:generar",
+      "dialog_node": "node_11_1542075908448"
+    },
+    {
+      "type": "standard",
+      "title": "¿QUÉ ES LA AFILIACIÓN FRAUDULENTA?",
+      "output": {
+        "text": {
+          "values": [
+            "Cuando el IESS comprueba afiliación fraudulenta, el Instituto retiene, en concepto de multa, los aportes personales y patronales así como los fondos de reserva.\nEl Instituto exige, además, el pago o reembolso de las prestaciones recibidas y declara exigibles las obligaciones por préstamos concedidos, sin perjuicio de las acciones civiles y penales.\nSon responsables solidarios por las cantidades generadas de la afiliación fraudulenta, el falso afiliado y la persona que figuró como empleador.\n"
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "node_68_1542081521486",
+      "metadata": {},
+      "dialog_node": "node_69_1542081827106"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_27_1542079101217",
+      "event_name": "focus",
+      "dialog_node": "handler_29_1542079101217",
+      "previous_sibling": "handler_28_1542079101217"
+    },
+    {
+      "type": "event_handler",
+      "parent": "slot_27_1542079101217",
+      "event_name": "input",
+      "dialog_node": "handler_28_1542079101217"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": "No respondiste"
+      },
+      "parent": "slot_6_1542075854956",
+      "event_name": "focus",
+      "dialog_node": "handler_8_1542075854956",
+      "previous_sibling": "handler_7_1542075854956"
+    },
+    {
+      "type": "event_handler",
+      "parent": "slot_6_1542075854956",
+      "context": {
+        "clave": "@clave"
+      },
+      "conditions": "@clave",
+      "event_name": "input",
+      "dialog_node": "handler_7_1542075854956"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_15_1542075945957",
+      "event_name": "focus",
+      "dialog_node": "handler_17_1542075945957",
+      "previous_sibling": "handler_16_1542075945957"
+    },
+    {
+      "type": "event_handler",
+      "parent": "slot_15_1542075945957",
+      "event_name": "input",
+      "dialog_node": "handler_16_1542075945957"
+    },
+    {
+      "type": "standard",
+      "title": "user_name",
+      "output": {
+        "text": {
+          "values": [
+            "$nombre bienvenido, ¿Cómo puedo ayudarle? ",
+            "$nombre bienvenido, ¿Qué información necesitas? ",
+            "$nombre, ¿Cómo puedo ayudarte? "
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "Bienvenido",
+      "context": {
+        "nombre": "<?input.text?>"
+      },
+      "metadata": {},
+      "conditions": "true",
+      "dialog_node": "node_23_1542077665624"
+    },
+    {
+      "type": "frame",
+      "output": {},
+      "metadata": {
+        "fallback": "leave",
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "#tipos_afiliación",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_25_1542079081361",
+      "digress_out": "allow_all",
+      "previous_sibling": "node_1_1542075733889",
+      "digress_out_slots": "not_allowed"
+    },
+    {
+      "type": "standard",
+      "title": "En otras cosas",
+      "output": {
+        "text": {
+          "values": [
+            "No le he entendido. Intente reformular la consulta.",
+            "¿Puede expresarse con otras palabras? No le he entendido.",
+            "No entendí el significado."
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "metadata": {},
+      "conditions": "anything_else",
+      "dialog_node": "En otras cosas",
+      "previous_sibling": "node_25_1542079081361"
+    },
+    {
+      "type": "standard",
+      "title": "No",
+      "output": {
+        "text": {
+          "values": [
+            "$nombre no necesitas información"
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "metadata": {},
+      "conditions": "#no",
+      "dialog_node": "node_65_1542080620991",
+      "previous_sibling": "node_68_1542081521486"
+    },
+    {
+      "type": "frame",
+      "title": "clave",
+      "output": {},
+      "metadata": {
+        "fallback": "leave",
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "#clave",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_1_1542075733889",
+      "digress_out": "allow_all",
+      "previous_sibling": "node_65_1542080620991",
+      "digress_out_slots": "not_allowed"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": {
+          "values": [],
+          "selection_policy": "sequential"
+        }
+      },
+      "metadata": {},
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_69_1542081827106"
+      },
+      "conditions": "#tipos_afiliación",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_68_1542081521486",
+      "previous_sibling": "node_66_1542081124498"
+    },
+    {
+      "type": "standard",
+      "title": "Concepto IESS",
+      "output": {
+        "text": {
+          "values": [
+            "El Instituto Ecuatoriano de Seguridad Social es una entidad, cuya organización y funcionamiento se fundamenta en los principios de solidaridad, obligatoriedad, universalidad, equidad, eficiencia, subsidiariedad y suficiencia. Se encarga de aplicar el Sistema del Seguro General Obligatorio que forma parte del sistema nacional de Seguridad Social\n"
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "metadata": {},
+      "conditions": "#conceptos_iess",
+      "dialog_node": "node_66_1542081124498",
+      "previous_sibling": "node_67_1542081271735"
+    },
+    {
+      "type": "standard",
+      "title": "Concepto Asegurados",
+      "output": {
+        "text": {
+          "values": [
+            "Es toda persona natural protegida por el Seguro General Obligatorio, en calidad de afiliada o beneficiaria con derecho."
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "metadata": {},
+      "conditions": "#concepto_asegurados",
+      "dialog_node": "node_67_1542081271735",
+      "previous_sibling": "Bienvenido"
+    },
+    {
+      "type": "standard",
+      "title": "Bienvenido",
+      "output": {
+        "text": {
+          "values": [
+            "Hola soy el asistente virtual de Seguros del IESS, ¿Podrias escribir tu nombre para poder ayudarte?",
+            "Hola, soy el asistente virtual de Seguros del IESS, ¿Puedes decirme tu nombre?",
+            "Hola, soy el asistente virtual de Seguros del IESS, ¿Me gustaría conocer tu nombre?"
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "metadata": {},
+      "conditions": "welcome",
+      "dialog_node": "Bienvenido"
+    }
+  ],
+  "workspace_id": "ca5a22fe-77c0-4d1a-8fd6-11ce0f3096ab",
+  "counterexamples": [],
+  "learning_opt_out": false,
+  "status": "Available"
+}
